@@ -82,7 +82,7 @@ var rollyScrolled=rollyScrolly({
 
 ## Credits
 
-Written by [Williams New York](http://williamsnewyork.com
+Written by [Williams New York](http://williamsnewyork.com)
 
 ### Authors 
 
