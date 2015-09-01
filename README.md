@@ -16,7 +16,7 @@ rolly-scrolly provides a single function, `rollyScrolly`, which takes an object 
 
 ## Usage
 
-```
+```javascript
 // declare an object with numeric keys, and objects as values
 /*
 	these objects must contain two attributes:
