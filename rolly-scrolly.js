@@ -12,7 +12,7 @@ function rollyScrolly(opt){
 		position:0,
         lastPosition:0,
 		range:$container.height(),
-		frames:opt.frames||1000,
+		frames:opt.frames-1||1000, // subtract one here because we include the zero frame
 		container:$container,
 		scrolltop:0,
 	};
