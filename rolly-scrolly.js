@@ -10,6 +10,7 @@ function rollyScrolly(opt){
 
 	var state={
 		position:0,
+        lastPosition:0,
 		range:$container.height(),
 		frames:opt.frames||1000,
 		container:$container,
@@ -21,45 +22,47 @@ function rollyScrolly(opt){
 
 	updateViewportHeight();
 
-	// make sure this is the first function in the stack, so you can focus on actions
-	// this updates which 'frame' is active
-	// entering a frame triggers an event, if the frame has an event associated
-	stack.unshift({
-		func:function(state,index){
+	// execute every function within the stack when you scroll
+	// functions receive the 'state' object as an argument
+	// as well as an integer representing their position in the stack (probably useless)
+
+	$window.scroll(function(){
+        var hasChangedPosition=false;
+
+        // guarantee execution of all events
+        (function(state){
 			var top=state.scrollTop=$window.scrollTop();
 			var temp=Math.floor((top/state.range)*state.frames);
 			if(state.position !== temp){
+                hasChangedPosition=true;
 				// make sure intermediary events get called...
 				(function(){
 					if(temp > state.position){
 						while(state.position < temp){
 							state.position++;
 							if(events[state.position]){
-								events[state.position].func(state,index);
+								events[state.position].func(state,0);
 							}
 						}
 					}else{
 						while(state.position > temp){
 							state.position--;
 							if(events[state.position]){
-								events[state.position].func();
+								events[state.position].func(state,0);
 							}
 						}
 					}
 				}());
 				state.position=temp;
 			}
-		},
-		label:'calculate position',
-	});
+        }(state));
 
-	// execute every function within the stack when you scroll
-	// functions receive the 'state' object as an argument
-	// as well as an integer representing their position in the stack (probably useless)
-	$window.scroll(function(){
-		stack.forEach(function(item,index){
-			item.func(state,index);
-		});
+        // and if the position has changed, then call every function in the stack.
+        if(hasChangedPosition){
+            stack.forEach(function(item,index){
+                item.func(state,index);
+            });
+        }
 	});
 
 	// we're tracking how far we can scroll, so we need to know what amount
