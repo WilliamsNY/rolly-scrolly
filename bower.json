@@ -1,0 +1,16 @@
+{
+  "name": "rolly-scrolly",
+  "description": "A JavaScript plugin to turn a scrollable area of a web page into a timeline of events with a simple API",
+  "authors": [
+    "Aaron MacSween"
+  ],
+  "license": "MIT",
+  "main": "./rolly-scrolly.min.js",
+  "ignore": [
+    "**/.*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/WilliamsNY/rolly-scrolly.git"
+  }
+}
