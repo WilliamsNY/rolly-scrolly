@@ -1,10 +1,10 @@
 # rolly-scrolly
 
-> Turn a scrollable area of a web page into a timeline of events with a simple API
+Turn a scrollable area of a web page into a timeline of events with a simple API.
 
 ## Description
 
-rolly-scrolly provides a single function, `rollyScrolly`, which takes an object of configuration options as its only argument.
+Provides the function `rollyScrolly`, which takes an object of configuration options as its only argument.
 
 ## Features
 
@@ -19,72 +19,71 @@ rolly-scrolly provides a single function, `rollyScrolly`, which takes an object 
 ```javascript
 // declare an object with numeric keys, and objects as values
 /*
-	these objects must contain two attributes:
-		'func': a function literal or function reference
-		'label': a description of the function (for debugging purposes)
+    these objects must contain two attributes:
+        'func': a function literal or function reference
+        'label': a description of the function (for debugging purposes)
 
-	The provided function takes two arguments:
-		'state': an object representing the current state of the scroller
-		'index': the order in which your event is being executed (relative to the stack)
+    The provided function takes two arguments:
+        'state': an object representing the current state of the scroller
+        'index': the order in which your event is being executed (relative to the stack)
 
 */
 
 var events={
-	0:{ 
-		func: function(state,index){
-			console.log("This is the first frame!");
-		},
-		label:'first frame'
-	},
-	50:{
-		func: function(state,index){
-			console.log("Keep going!");
+    0:{
+        func: function(state,index){
+            console.log("This is the first frame!");
+        },
+        label:'first frame'
+    },
+    50:{
+        func: function(state,index){
+            console.log("Keep going!");
 
-		},
-		label:'halfway done'
-	},
-	99:{
-		func: function(state,index){
-			console.log("You're done!");
-		},
-		label:'last frame'
-	}
+        },
+        label:'halfway done'
+    },
+    99:{
+        func: function(state,index){
+            console.log("You're done!");
+        },
+        label:'last frame'
+    }
 };
 
 /*
-	The events in the scrollstack are executed one after another.
-	They are guaranteed to fire for every frame you scroll through.
-	Stacked events only fire when the current frame changes to a new frame.
-	Stacked events follow the same format as indexed events.
+    The events in the scrollstack are executed one after another.
+    They are guaranteed to fire for every frame you scroll through.
+    Stacked events only fire when the current frame changes to a new frame.
+    Stacked events follow the same format as indexed events.
 */
 
 var scrollStack=[
-	{
-		func:function(state,index){
-			console.log(state);
-		},
-		label:'to be executed for once for every frame'
-	},
-	{
-		func: someFunctionReference,
-		label: 'your predefined function'
-	}
+    {
+        func:function(state,index){
+            console.log(state);
+        },
+        label:'to be executed for once for every frame'
+    },
+    {
+        func: someFunctionReference,
+        label: 'your predefined function'
+    }
 ];
 
 var rollyScrolled=rollyScrolly({
-	container:'body',
-	frames:100,
-	events:events,
-	stack:scrollStack
+    container:'body',
+    frames:100,
+    events:events,
+    stack:scrollStack
 });
-
 ```
 
 ## Credits
 
 Written by [Williams New York](http://williamsnewyork.com)
 
-### Authors 
+### Authors
 
 * [Aaron MacSween](https://github.com/ansuz)
 
